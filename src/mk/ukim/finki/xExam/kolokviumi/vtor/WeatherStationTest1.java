@@ -1,21 +1,19 @@
 package mk.ukim.finki.xExam.kolokviumi.vtor;
 
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class WeatherStationTest {
+public class WeatherStationTest1 {
     public static void main(String[] args) throws ParseException {
         Scanner scanner = new Scanner(System.in);
         DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         int n = scanner.nextInt();
         scanner.nextLine();
-        WeatherStation ws = new WeatherStation(n);
+        WeatherStation1 ws = new WeatherStation1(n);
         while (true) {
             String line = scanner.nextLine();
             if (line.equals("=====")) {
@@ -44,12 +42,12 @@ public class WeatherStationTest {
     }
 }
 
-class WeatherStation {
+class WeatherStation1 {
     private int days;
-    private TreeMap<Date, Measurement> measurements;
+    private TreeMap<Date, Measurement1> measurements;
     private static final int MAX_DIFF = 150000;
 
-    public WeatherStation(int days) {
+    public WeatherStation1(int days) {
         this.days = days;
         this.measurements = new TreeMap<>();
     }
@@ -67,7 +65,7 @@ class WeatherStation {
             }
         }
 
-        this.measurements.put(date, new Measurement(temperature, wind, humidity, visibility, date));
+        this.measurements.put(date, new Measurement1(temperature, wind, humidity, visibility, date));
     }
 
     public int total() {
@@ -76,13 +74,13 @@ class WeatherStation {
 
     public void status(Date from, Date to) throws RuntimeException {
 
-        Map<Date, Measurement> subMap = this.measurements.subMap(from, true, to, true);
+        Map<Date, Measurement1> subMap = this.measurements.subMap(from, true, to, true);
 
         if (subMap.isEmpty()) throw new RuntimeException();
 
         double average = subMap.values().stream()
                 .peek(System.out::println)
-                .mapToDouble(Measurement::getTemp)
+                .mapToDouble(Measurement1::getTemp)
                 .average()
                 .orElse(0);
 
@@ -95,14 +93,14 @@ class WeatherStation {
     }
 }
 
-class Measurement {
+class Measurement1 {
     private float temp;
     private float wet;
     private float wind;
     private float see;
     private Date time;
 
-    public Measurement(float temp, float wind, float wet,  float see, Date time) {
+    public Measurement1(float temp, float wind, float wet, float see, Date time) {
         this.temp = temp;
         this.wet = wet;
         this.wind = wind;
